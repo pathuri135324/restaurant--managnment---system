@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gongura House – Restaurant, Guntur</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F1EA;--panel:#FFFFFF;--ink:#0E2A33;--mute:#5B7178;--line:#D9DED6;--acc:#E8A317;--ok:#1F9E7A;--bad:#D6454A;--deep:#0E2A33;--on-deep:#F3F1EA;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A1A20;--panel:#112A33;--ink:#E7F0EC;--mute:#8FA8AF;--line:#1F3E49;--deep:#061217;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0A1A20;--panel:#112A33;--ink:#E7F0EC;--mute:#8FA8AF;--line:#1F3E49;--deep:#061217;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 'DM Sans',system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;letter-spacing:-.025em;margin:0}
+a{color:inherit}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:.6rem 1.1rem;background:var(--ink);color:var(--bg);font-weight:500}
+button.go{background:var(--acc);color:#0E2A33;font-weight:700}
+button.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+input,select{font:inherit;width:100%;padding:.65rem .8rem;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+label{display:grid;gap:4px;font-size:14px;color:var(--mute)}
+header{position:sticky;top:0;z-index:20;background:var(--deep);color:var(--on-deep);display:flex;align-items:center;gap:18px;padding:12px max(18px,calc((100% - 1100px)/2));flex-wrap:wrap}
+header .logo{font:800 22px 'Bricolage Grotesque';color:var(--acc);text-decoration:none;margin-right:auto}
+header a.l{text-decoration:none;opacity:.75;padding:4px 2px;border-bottom:2px solid transparent}
+header a.l[aria-current="true"]{opacity:1;border-color:var(--acc)}
+#cartbtn{background:var(--acc);color:#0E2A33;font-weight:700}
+section.page{max-width:1100px;margin:0 auto;padding:36px 18px 60px;display:none}
+section.page.on{display:block}
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:34px;align-items:center;padding:30px 0}
+@media(max-width:800px){.hero{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(40px,7vw,78px);line-height:.98;font-weight:800}
+.hero p{color:var(--mute);max-width:46ch;font-size:18px}
+.plate{aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 50%,#F6D58B 0 30%,#E8A317 31% 52%,#0E2A33 53% 56%,#F3F1EA 57% 100%);display:grid;place-items:center;font-size:clamp(70px,14vw,150px);box-shadow:0 30px 60px rgba(14,42,51,.25)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border-top:1px solid var(--line);margin-top:30px}
+.feat div{padding:20px 20px 20px 0}
+.feat h3{font-size:19px;margin-bottom:4px}.feat p{margin:0;color:var(--mute);font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.dish{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:8px;align-content:space-between}
+.dish .e{font-size:44px}
+.veg{display:inline-block;width:12px;height:12px;border:2px solid var(--ok);border-radius:3px;position:relative;margin-right:6px;vertical-align:middle}
+.veg::after{content:"";position:absolute;inset:2px;background:var(--ok);border-radius:50%}
+.veg.n{border-color:var(--bad)}.veg.n::after{background:var(--bad)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}
+.chips button{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+form.f{display:grid;gap:12px}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--panel);z-index:30;padding:20px;overflow:auto;transform:translateX(105%);transition:transform .25s;border-left:1px solid var(--line);padding-top:max(20px,env(safe-area-inset-top,0px))}
+#drawer.on{transform:none}
+.q{display:inline-flex;align-items:center;gap:8px}.q button{padding:.2rem .7rem}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:18px 0}
+.steps div{text-align:center;font-size:13px;color:var(--mute);border-top:5px solid var(--line);padding-top:6px}
+.steps div.d{border-color:var(--acc);color:var(--ink);font-weight:700}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700;background:var(--line)}
+.pill.ok{background:var(--ok);color:#fff}
+.t{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;z-index:40;display:none}
+footer{background:var(--deep);color:var(--on-deep);padding:30px max(18px,calc((100% - 1100px)/2));display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+footer p{margin:2px 0;opacity:.8}
+.rev{font-size:17px;border-left:4px solid var(--acc);padding-left:14px;margin:0 0 18px}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--acc);color:#0E2A33;padding:12px 18px;border-radius:99px;font-weight:700;text-decoration:none;z-index:15;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+details{border-bottom:1px solid var(--line);padding:12px 0}
+summary{cursor:pointer;font-weight:700}
+.off{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.off .card b{font:800 22px 'Bricolage Grotesque'}
+.search{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin-top:14px}
+video.fv{width:100%;border-radius:14px;transform:scaleX(-1);display:none;margin-top:10px}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+</head>
+<body>
+<header>
+ <a class="logo" href="#home">Gongura House</a>
+ <a class="l" href="#home">Home</a><a class="l" href="#menu">Menu</a><a class="l" href="#reserve">Reserve</a><a class="l" href="#party">Parties</a><a class="l" href="#track">Track order</a><a class="l" href="#admin">Admin</a>
+ <select id="lg" aria-label="Language" style="width:auto;padding:.4rem .6rem">
+ <option value="en">English</option><option value="te">తెలుగు</option><option value="hi">हिन्दी</option><option value="ta">தமிழ்</option><option value="kn">ಕನ್ನಡ</option><option value="ml">മലയാളം</option><option value="bn">বাংলা</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option><option value="ar">العربية</option><option value="zh">中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="id">Bahasa Indonesia</option><option value="mr">मराठी</option><option value="gu">ગુજરાતી</option>
+ <optgroup label="More (browser translates the page)"><option value="ur">اردو</option><option value="pa">ਪੰਜਾਬੀ</option><option value="or">ଓଡ଼ିଆ</option><option value="th">ไทย</option><option value="vi">Tiếng Việt</option><option value="pl">Polski</option><option value="nl">Nederlands</option><option value="sv">Svenska</option><option value="uk">Українська</option><option value="el">Ελληνικά</option><option value="he">עברית</option><option value="fa">فارسی</option><option value="ne">नेपाली</option><option value="si">සිංහල</option><option value="sw">Kiswahili</option><option value="ms">Bahasa Melayu</option><option value="ro">Română</option><option value="cs">Čeština</option><option value="hu">Magyar</option><option value="fi">Suomi</option><option value="da">Dansk</option><option value="bg">Български</option><option value="tl">Filipino</option></optgroup></select>
+ <button class="alt" id="th" style="color:inherit;border-color:rgba(255,255,255,.3)">Theme</button>
+ <button id="cartbtn">Cart (<span id="cc">0</span>)</button>
+</header>
+ <details><summary>Do you deliver across Guntur?</summary><p style="color:var(--mute)">Yes, within 8 km of Arundelpet. Delivery is free above ₹500.</p></details>
+ <details><summary>Is the food available without spice?</summary><p style="color:var(--mute)">Tell us when you order and the chef will adjust the heat.</p></details>
+ <details><summary>How is my face data used?</summary><p style="color:var(--mute)">Face welcome is optional and only works for guests who sign up at the restaurant. You can ask staff to delete your profile any time.</p></details>
+</section>
+
+<section class="page" id="menu">
+ <h2 style="font-size:40px">Menu</h2>
+ <p id="tb" style="display:none;background:var(--acc);color:#0E2A33;padding:8px 14px;border-radius:12px;font-weight:700;margin:12px 0 0"></p>
+ <div class="search"><input id="sq" type="search" placeholder="Search dishes or speak" aria-label="Search dishes"><select id="sl" aria-label="Voice language"><option value="te-IN">Telugu</option><option value="en-IN">English</option></select><button class="go" id="sv">Speak</button></div>
+ <div class="chips" id="chips"></div><div class="grid" id="mgrid"></div>
+</section>
+
+<section class="page" id="reserve">
+ <div class="two"><div><h2 style="font-size:40px">Reserve a table</h2><p style="color:var(--mute)">We hold your table for 15 minutes. Parties over 8 can call us.</p></div>
+ <div class="card"><form class="f" id="rf">
+  <label>Your name<input id="rn" required></label><label>Phone<input id="rp" type="tel" required pattern="[0-9]{10}" placeholder="10 digits"></label>
+  <label>Date<input id="rd" type="date" required></label>
+  <label>Time<select id="rt"><option>12:30 PM</option><option>1:30 PM</option><option>7:00 PM</option><option>8:00 PM</option><option>9:00 PM</option></select></label>
+  <label>Guests<select id="rg"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>6</option><option>8</option></select></label>
+  <button class="go">Confirm reservation</button></form><p id="rres" style="font-weight:700"></p></div></div>
+</section>
+
+<section class="page" id="party"><div class="two"><div><h2 style="font-size:40px">Private parties</h2><p style="color:var(--mute)">Birthdays, family functions and office lunches for 10 to 80 guests. Pick a package and see your estimate right away.</p></div>
+ <div class="card"><form class="f" id="pf"><label>Your name<input id="pn" required></label><label>Phone<input id="pp" type="tel" required pattern="[0-9]{10}" placeholder="10 digits"></label>
+ <label>Event<select id="pe"><option>Birthday</option><option>Family function</option><option>Office lunch</option><option>Anniversary</option></select></label>
+ <label>Date<input id="pd" type="date" required></label><label>Number of guests<input id="pg" type="number" min="10" max="80" value="20" required></label>
+ <label>Package<select id="pk"><option value="599">Silver · ₹599 per guest (veg starters, 2 mains, sweet)</option><option value="899">Gold · ₹899 per guest (starters, 3 mains, biryani, 2 sweets)</option><option value="1299">Platinum · ₹1299 per guest (live counters, prawns, full menu)</option></select></label>
+ <label><span><input class="px" type="checkbox" value="5000" style="width:auto"> Table decoration ₹5,000</span></label><label><span><input class="px" type="checkbox" value="1500" style="width:auto"> Cake ₹1,500</span></label><label><span><input class="px" type="checkbox" value="8000" style="width:auto"> Live music ₹8,000</span></label>
+ <p id="pest" class="tip" style="margin:0;border-left:4px solid var(--acc);padding-left:12px"></p><button class="go">Send enquiry</button></form><p id="pres" style="font-weight:700"></p></div></div></section>
+
+<section class="page" id="track">
+ <h2 style="font-size:40px">Track your order</h2><p style="color:var(--mute)">Place an order from the menu, then follow it here.</p>
+ <div class="card" id="tbox"><p>No order yet. <a href="#menu">Browse the menu</a>.</p></div>
+</section>
+
+<section class="page" id="admin">
+ <h2 style="font-size:40px">Admin</h2><p style="color:var(--mute)">Every order and booking from the website lands here.</p>
+ <div id="alogin" class="card" style="max-width:380px"><h3>Staff login</h3><p style="color:var(--mute)">Demo logins: manager / 1234 and chef / 5678.</p><form class="f" id="lf"><label>Staff ID<input id="li" required autocomplete="off"></label><label>PIN<input id="lp" type="password" required></label><button class="go">Log in</button></form><p id="lerr" style="color:var(--bad);margin:8px 0 0"></p></div>
+ <div id="abody" style="display:none"><div class="row" style="margin-bottom:14px"><span id="who" class="pill"></span><button class="alt" id="lo">Log out</button></div>
+ <div class="grid" id="astats" style="margin-bottom:20px"></div>
+ <div class="two"><div class="card"><h3>Orders</h3><div id="aord"></div></div><div class="card"><h3>Reservations</h3><div id="ares"></div></div></div>
+ <div class="two" style="margin-top:20px"><div class="card"><h3>Sales by order</h3><div id="achart"></div></div><div class="card"><h3>Menu manager</h3><div id="amenu"></div><form class="f" id="af" style="margin-top:12px"><input id="an" placeholder="New dish name" required><input id="ap2" type="number" min="1" placeholder="Price in ₹" required><button class="go">Add dish to menu</button></form></div></div>
+ <div class="card" style="margin-top:20px"><h3>Table QR codes</h3><p style="color:var(--mute)">Print one per table. Guests scan it and order from their seat.</p><div class="chips" id="qrt"></div><div id="qrbox" style="max-width:220px;background:#fff;padding:8px;border-radius:12px"></div><small id="qrl" style="color:var(--mute);word-break:break-all;display:block;margin-top:8px"></small><button class="alt" id="qrtry" style="margin-top:10px">Try ordering as this table</button></div>
+ <div class="card" style="margin-top:20px"><h3>Party enquiries</h3><div id="apar"></div></div></div>
+</section>
+
+<a class="fab" href="tel:+919000000000">Call us</a>
+<aside id="drawer" aria-label="Your cart"></aside>
+<div class="t" id="toast" role="status"></div>
+<footer><div><h3 style="color:var(--acc)">Gongura House</h3><p>Arundelpet, Guntur</p></div><div><h3>Hours</h3><p>Daily, 12 PM to 11 PM</p></div><div><h3>Call</h3><p>+91 90000 00000</p></div></footer>
+
+<script>
+const $=s=>document.querySelector(s),fmt=n=>'₹'+n.toLocaleString('en-IN');
+const menu=[
+{n:'Gongura chicken',p:320,c:'Mains',v:0,e:'🍗'},{n:'Guntur chilli prawns',p:420,c:'Starters',v:0,e:'🦐'},{n:'Chilli chicken 65',p:260,c:'Starters',v:0,e:'🌶️'},
+{n:'Paneer tikka',p:280,c:'Starters',v:1,e:'🧀'},{n:'Hyderabadi dum biryani',p:360,c:'Rice',v:0,e:'🍛'},{n:'Veg pulao',p:220,c:'Rice',v:1,e:'🍚'},
+{n:'Ghee podi dosa',p:140,c:'Mains',v:1,e:'🥞'},{n:'Pappu and avakaya meal',p:200,c:'Mains',v:1,e:'🍲'},{n:'Double ka meetha',p:150,c:'Sweets',v:1,e:'🍮'},
+{n:'Pootharekulu',p:120,c:'Sweets',v:1,e:'🍬'},{n:'Filter coffee',p:70,c:'Drinks',v:1,e:'☕'},{n:'Buttermilk',p:60,c:'Drinks',v:1,e:'🥛'}];
+let cart={},orders=[],bookings=[],cat='All',oid=1000,mine=null;
+const stages=['Received','Cooking','On the way','Delivered'];
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.k);toast.k=setTimeout(()=>t.style.display='none',2600)}
+function route(){let h=(location.hash||'#home').slice(1);if(/^table-\d+$/.test(h)){tableNo=+h.slice(6);h='menu';const b=$('#tb');b.style.display='block';b.textContent='Ordering for table '+tableNo+'. Your food will be brought to your seat.'}const ok=['home','menu','reserve','party','track','admin'].includes(h)?h:'home';
+ document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id===ok));
+ document.querySelectorAll('header .l').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+ok));
+ if(ok==='track')drawTrack();if(ok==='admin')drawAdmin();scrollTo(0,0)}
+addEventListener('hashchange',route);
+function drawMenu(){
+ const cats=['All',...new Set(menu.map(m=>m.c))];
+ $('#chips').innerHTML=cats.map(c=>`<button aria-pressed="${c===cat}" data-c="${c}">${c}</button>`).join('');
+ $('#mgrid').innerHTML=menu.map((m,i)=>({m,i})).filter(x=>(cat==='All'||x.m.c===cat)&&(!q||x.m.n.toLowerCase().includes(q))).map(({m,i})=>`<div class="dish"><div class="e">${m.e}</div><div><b><span class="veg ${m.v?'':'n'}" title="${m.v?'Vegetarian':'Non-vegetarian'}"></span>${m.n}</b></div><div class="row"><b>${fmt(m.p)}</b><button class="go" data-a="${i}" ${m.off?'disabled':''}>${m.off?'Sold out':'Add'}</button></div></div>`).join('');
+}
+$('#chips').onclick=e=>{const b=e.target.closest('button');if(b){cat=b.dataset.c;drawMenu()}};
+$('#mgrid').onclick=e=>{const b=e.target.closest('[data-a]');if(b){cart[b.dataset.a]=(cart[b.dataset.a]||0)+1;drawCart();toast(menu[b.dataset.a].n+' added to cart')}};
+function total(){return Object.entries(cart).reduce((a,[i,q])=>a+menu[i].p*q,0)}
+function drawCart(){
+ $('#cc').textContent=Object.values(cart).reduce((a,b)=>a+b,0);
+ const t=total(),gst=Math.round(t*.05),dc=Math.round(t*disc),keys=Object.keys(cart);
+ $('#drawer').innerHTML=`<div class="row"><h2>Your cart</h2><button class="alt" id="close">Close</button></div>`+(keys.length?`
+ ${keys.map(i=>`<div class="row" style="margin:12px 0"><span>${menu[i].n}<br><small style="color:var(--mute)">${fmt(menu[i].p)}</small></span><span class="q"><button class="alt" data-m="${i}" aria-label="Remove one">−</button>${cart[i]}<button class="alt" data-p="${i}" aria-label="Add one">+</button></span></div>`).join('')}
+ <hr style="border:0;border-top:1px solid var(--line)"><div class="row"><span>Subtotal</span><span>${fmt(t)}</span></div><div class="row"><span>GST 5%</span><span>${fmt(gst)}</span></div>${dc?`<div class="row" style="color:var(--ok)"><span>Coupon GONGURA10</span><span>−${fmt(dc)}</span></div>`:''}<div class="row"><b>Total</b><b>${fmt(t+gst-dc)}</b></div>
+ <div class="row" style="margin-top:10px"><input id="cc2" placeholder="Coupon code (try GONGURA10)" aria-label="Coupon code"><button type="button" class="alt" id="ap">Apply</button></div>
+ <form class="f" id="cf" style="margin-top:16px"><label>Name<input id="cn" required></label><label>Phone<input id="cp" type="tel" required pattern="[0-9]{10}"></label>${tableNo?'':'<label>Delivery address<input id="ca" required></label>'}
+ <label>Payment<select id="cy"><option>UPI</option><option>Card</option><option>Cash on delivery</option></select></label><button class="go">Place order · ${fmt(t+gst-dc)}</button></form>`:'<p style="color:var(--mute)">Your cart is empty. Pick something from the menu.</p>');
+}
+$('#drawer').onclick=e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.id==='close')$('#drawer').classList.remove('on');
+ if(b.id==='ap'){const c=$('#cc2').value.trim().toUpperCase();disc=c==='GONGURA10'?.1:0;toast(disc?'10% off applied':'That code is not valid');drawCart()}
+ if(b.dataset.p){cart[b.dataset.p]++;drawCart()}
+ if(b.dataset.m){if(--cart[b.dataset.m]<=0)delete cart[b.dataset.m];drawCart()}};
+$('#drawer').onsubmit=e=>{e.preventDefault();
+ const t=total(),dc=Math.round(t*disc),o={id:++oid,name:$('#cn').value,addr:tableNo?'Table '+tableNo+' (dine-in)':$('#ca').value,pay:$('#cy').value,items:Object.entries(cart).map(([i,q])=>q+' × '+menu[i].n),amt:t+Math.round(t*.05)-dc,st:0};
+ orders.push(o);mine=o.id;cart={};disc=0;pts+=Math.floor(o.amt/10);drawCart();$('#drawer').classList.remove('on');location.hash='track';toast('Order #'+o.id+' placed. You have '+pts+' loyalty points')};
+$('#cartbtn').onclick=()=>{drawCart();$('#drawer').classList.add('on')};
+function drawTrack(){
+ const o=orders.find(x=>x.id===mine);if(!o)return;
+ $('#tbox').innerHTML=`<div class="row"><h3>Order #${o.id}</h3><span class="pill ${o.st===3?'ok':''}">${stages[o.st]}</span></div>
+ <p style="color:var(--mute)">${o.items.join(', ')}<br>To ${o.addr} · ${o.pay} · ${fmt(o.amt)}</p>
+ <div class="steps">${stages.map((s,i)=>`<div class="${i<=o.st?'d':''}">${s}</div>`).join('')}</div>
+ <p style="font-size:30px;margin:0">${['👨‍🍳','🔥','🛵','🏠'][o.st]}</p><p>${['We got your order.','Your food is on the stove.',(o.addr.startsWith('Table')?'Your waiter is bringing it to your table.':'Your rider is heading to you. About 12 minutes.'),'Delivered. Enjoy your meal!'][o.st]}</p>`;
+}
+ $('#rd').min=new Date().toISOString().slice(0,10);
+$('#rf').onsubmit=e=>{e.preventDefault();
+ const g=+$('#rg').value,tb=(bookings.length%8)+1,code='LT'+Math.floor(1000+Math.random()*9000);
+ bookings.push({name:$('#rn').value,date:$('#rd').value,time:$('#rt').value,g,tb,code});
+ $('#rres').textContent=`Booked. Table ${tb} for ${g} on ${$('#rd').value} at ${$('#rt').value}. Code ${code}.`;e.target.reset()};
+function adminExtra(){
+ $('#apar').innerHTML=parties.map(p=>`<div style="margin:10px 0"><b>${p.ref} · ${p.name}</b> · ${p.ev}<br><small style="color:var(--mute)">${p.date}, ${p.g} guests, ${p.pkg}, estimate ${fmt(p.est)}, phone ${p.ph}</small></div>`).join('')||'<p style="color:var(--mute)">No party enquiries yet.</p>';
+ if(!$('#qrbox').innerHTML)qrDraw(qrN);
+ const l=orders.slice(-8),mx=Math.max(1,...l.map(o=>o.amt));
+ $('#achart').innerHTML=l.length?`<svg viewBox="0 0 320 150" width="100%" role="img" aria-label="Order values">${l.map((o,i)=>`<rect x="${10+i*38}" y="${120-o.amt/mx*100}" width="28" height="${o.amt/mx*100}" rx="6" fill="var(--acc)"/><text x="${24+i*38}" y="140" text-anchor="middle" font-size="10" fill="currentColor">#${o.id}</text>`).join('')}</svg>`:'<p style="color:var(--mute)">Place an order to see the chart.</p>';
+ $('#amenu').innerHTML=menu.map((m,i)=>`<div class="row" style="margin:8px 0"><span>${m.e} ${m.n} <small style="color:var(--mute)">${fmt(m.p)}</small></span><button class="${m.off?'go':'alt'}" data-o="${i}">${m.off?'Back in stock':'Mark sold out'}</button></div>`).join('');
+}
+function drawAdmin(){const on=!!staff;$('#alogin').style.display=on?'none':'block';$('#abody').style.display=on?'block':'none';if(!on)return;$('#who').textContent=staff.id+' · '+staff.role;const m=staff.role==='manager';[$('#achart').parentElement.parentElement,$('#qrbox').parentElement,$('#astats'),$('#ares').parentElement,$('#apar').parentElement].forEach(e=>e.style.display=m?'':'none');adminExtra();
+ const rev=orders.reduce((a,o)=>a+o.amt,0);
+ $('#astats').innerHTML=[[orders.length,'Orders'],[fmt(rev),'Revenue'],[bookings.length,'Bookings']].map(s=>`<div class="card"><h2>${s[0]}</h2><small style="color:var(--mute)">${s[1]}</small></div>`).join('');
+ $('#aord').innerHTML=orders.map(o=>`<div class="row" style="margin:10px 0"><span><b>#${o.id} ${o.name}</b><br><small style="color:var(--mute)">${o.items.join(', ')}</small></span><button ${o.st>2?'disabled':''} data-n="${o.id}">${o.st>2?'Done':'Mark '+stages[o.st+1].toLowerCase()}</button></div>`).join('')||'<p style="color:var(--mute)">No orders yet. Place one from the menu.</p>';
+ $('#ares').innerHTML=bookings.map(b=>`<div style="margin:10px 0"><b>${b.name}</b> · Table ${b.tb}<br><small style="color:var(--mute)">${b.date}, ${b.time}, ${b.g} guests, code ${b.code}</small></div>`).join('')||'<p style="color:var(--mute)">No bookings yet.</p>';
+}
+$('#aord').onclick=e=>{const b=e.target.closest('[data-n]');if(b){const o=orders.find(x=>x.id==b.dataset.n);if(o.st<3)o.st++;drawAdmin()}};
+setInterval(()=>{const o=orders.find(x=>x.id===mine);if(o&&o.st<3&&Math.random()>.55){o.st++;if(location.hash==='#track')drawTrack();if(location.hash==='#admin')drawAdmin()}},6000);
+let q='',disc=0,pts=0,tableNo=0,qrN=1,staff=null,lang='en',parties=[];
+const TE={'Home':'హోమ్','Menu':'మెనూ','Reserve':'బుక్ చేయండి','Parties':'పార్టీలు','Track order':'ఆర్డర్ ట్రాక్','Admin':'అడ్మిన్','Guntur’s smartest table.':'గుంటూరు స్మార్ట్ టేబుల్.','Andhra heat, cooked by a kitchen that listens. Order in Telugu with your voice, book a table in ten seconds, and watch your biryani travel to you.':'ఆంధ్ర ఘాటు, మీ మాట వినే వంటగదిలో. తెలుగులో వాయిస్తో ఆర్డర్ చేయండి, పది సెకన్లలో టేబుల్ బుక్ చేయండి, బిర్యానీ మీ దగ్గరికి రావడం చూడండి.','Order online':'ఆన్‌లైన్ ఆర్డర్','Reserve a table':'టేబుల్ బుక్ చేయండి','Add':'జోడించు','Sold out':'అయిపోయింది','All':'అన్నీ','Starters':'స్టార్టర్స్','Mains':'మెయిన్స్','Rice':'అన్నం','Sweets':'స్వీట్లు','Drinks':'పానీయాలు','Offers this week':'ఈ వారం ఆఫర్లు','Our kitchen story':'మా వంటగది కథ','What guests say':'అతిథుల మాట','Questions':'ప్రశ్నలు','Share your review':'మీ సమీక్ష రాయండి','Post review':'పోస్ట్ చేయండి','Subscribe':'సబ్‌స్క్రైబ్','Chef’s pick for you':'చెఫ్ సూచన','Suggest dishes':'వంటకాలు సూచించు','Smart welcome':'స్మార్ట్ స్వాగతం','Scan my face':'నా ముఖం స్కాన్','Call us':'కాల్ చేయండి','Your name':'మీ పేరు','Phone':'ఫోన్','Date':'తేదీ','Time':'సమయం','Guests':'అతిథులు','Number of guests':'అతిథుల సంఖ్య','Confirm reservation':'బుకింగ్ నిర్ధారించండి','Your cart':'మీ కార్ట్','Close':'మూసివేయి','Subtotal':'సబ్‌టోటల్','Total':'మొత్తం','Apply':'వర్తించు','Track your order':'మీ ఆర్డర్ ట్రాక్ చేయండి','Received':'అందింది','Cooking':'వండుతున్నాం','On the way':'దారిలో ఉంది','Delivered':'డెలివరీ అయింది','Orders':'ఆర్డర్లు','Reservations':'బుకింగ్‌లు','Private parties':'ప్రైవేట్ పార్టీలు','Send enquiry':'వివరాలు పంపండి','Staff login':'సిబ్బంది లాగిన్','Log in':'లాగిన్','Log out':'లాగౌట్','Hours':'సమయాలు'};
+const K=['Home','Menu','Reserve','Parties','Track order','Admin','Guntur’s smartest table.','Order online','Reserve a table','Add','Sold out','Offers this week','What guests say','Your cart','Total','Track your order','Private parties','Log in','Call us','Confirm reservation'];
+const mk=a=>Object.fromEntries(K.map((k,i)=>[k,a[i]]));
+const L={te:TE,
+hi:mk(['होम','मेनू','बुकिंग','पार्टी','ऑर्डर ट्रैक','एडमिन','गुंटूर की सबसे स्मार्ट टेबल।','ऑनलाइन ऑर्डर करें','टेबल बुक करें','जोड़ें','खत्म','इस हफ्ते के ऑफर','मेहमान क्या कहते हैं','आपकी कार्ट','कुल','अपना ऑर्डर ट्रैक करें','प्राइवेट पार्टी','लॉग इन','कॉल करें','बुकिंग पक्की करें']),
+ta:mk(['முகப்பு','மெனு','முன்பதிவு','விருந்துகள்','ஆர்டர் கண்காணிப்பு','நிர்வாகம்','குண்டூரின் ஸ்மார்ட் மேசை.','ஆன்லைனில் ஆர்டர் செய்','மேசை முன்பதிவு செய்','சேர்','தீர்ந்துவிட்டது','இந்த வார சலுகைகள்','விருந்தினர்கள் கருத்து','உங்கள் கார்ட்','மொத்தம்','உங்கள் ஆர்டரை கண்காணிக்கவும்','தனிப்பட்ட விருந்துகள்','உள்நுழை','அழையுங்கள்','முன்பதிவை உறுதிசெய்']),
+kn:mk(['ಮುಖಪುಟ','ಮೆನು','ಬುಕ್ ಮಾಡಿ','ಪಾರ್ಟಿಗಳು','ಆರ್ಡರ್ ಟ್ರ್ಯಾಕ್','ಅಡ್ಮಿನ್','ಗುಂಟೂರಿನ ಸ್ಮಾರ್ಟ್ ಟೇಬಲ್.','ಆನ್‌ಲೈನ್ ಆರ್ಡರ್','ಟೇಬಲ್ ಬುಕ್ ಮಾಡಿ','ಸೇರಿಸಿ','ಖಾಲಿಯಾಗಿದೆ','ಈ ವಾರದ ಆಫರ್‌ಗಳು','ಅತಿಥಿಗಳ ಮಾತು','ನಿಮ್ಮ ಕಾರ್ಟ್','ಒಟ್ಟು','ನಿಮ್ಮ ಆರ್ಡರ್ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ','ಖಾಸಗಿ ಪಾರ್ಟಿಗಳು','ಲಾಗಿನ್','ಕರೆ ಮಾಡಿ','ಬುಕಿಂಗ್ ಖಚಿತಪಡಿಸಿ']),
+ml:mk(['ഹോം','മെനു','ബുക്ക് ചെയ്യുക','പാർട്ടികൾ','ഓർഡർ ട്രാക്ക്','അഡ്മിൻ','ഗുണ്ടൂരിലെ സ്മാർട്ട് ടേബിൾ.','ഓൻലൈൻ ഓർഡർ','ടേബിൾ ബുക്ക് ചെയ്യുക','ചേർക്കുക','തീർന്നു','ഈ ആഴ്ചയിലെ ഓഫറുകൾ','അതിഥികൾ പറയുന്നത്','നിങ്ങളുടെ കാർട്ട്','ആകെ','നിങ്ങളുടെ ഓർഡർ ട്രാക്ക് ചെയ്യുക','സ്വകാര്യ പാർട്ടികൾ','ലോഗിൻ','വിളിക്കൂ','ബുക്കിംഗ് ഉറപ്പിക്കുക']),
+bn:mk(['হোম','মেনু','বুকিং','পার্টি','অর্ডার ট্র্যাক','অ্যাডমিন','গুন্টুরের স্মার্ট টেবিল।','অনলাইনে অর্ডার করুন','টেবিল বুক করুন','যোগ করুন','শেষ','এই সপ্তাহের অফার','অতিথিরা কী বলেন','আপনার কার্ট','মোট','আপনার অর্ডার ট্র্যাক করুন','প্রাইভেট পার্টি','লগ ইন','কল করুন','বুকিং নিশ্চিত করুন']),
+es:mk(['Inicio','Menú','Reservar','Fiestas','Seguir pedido','Admin','La mesa más inteligente de Guntur.','Pedir en línea','Reservar una mesa','Añadir','Agotado','Ofertas de la semana','Lo que dicen los clientes','Tu carrito','Total','Sigue tu pedido','Fiestas privadas','Iniciar sesión','Llámanos','Confirmar reserva'])};
+const K2=['Home','Menu','Reserve','Order online','Add','Sold out','Your cart','Total','Log in','Call us'];
+const mk2=a=>Object.fromEntries(K2.map((k,i)=>[k,a[i]]));
+Object.assign(L,{
+fr:mk2(['Accueil','Menu','Réserver','Commander en ligne','Ajouter','Épuisé','Votre panier','Total','Connexion','Appelez-nous']),
+de:mk2(['Startseite','Speisekarte','Reservieren','Online bestellen','Hinzufügen','Ausverkauft','Ihr Warenkorb','Gesamt','Anmelden','Rufen Sie an']),
+pt:mk2(['Início','Cardápio','Reservar','Pedir online','Adicionar','Esgotado','Seu carrinho','Total','Entrar','Ligue para nós']),
+it:mk2(['Home','Menu','Prenota','Ordina online','Aggiungi','Esaurito','Il tuo carrello','Totale','Accedi','Chiamaci']),
+ru:mk2(['Главная','Меню','Бронь','Заказать онлайн','Добавить','Нет в наличии','Ваша корзина','Итого','Войти','Позвоните нам']),
+ar:mk2(['الرئيسية','القائمة','احجز','اطلب أونلاين','أضف','نفد','سلتك','المجموع','تسجيل الدخول','اتصل بنا']),
+zh:mk2(['首页','菜单','预订','在线点餐','添加','售罄','您的购物车','总计','登录','致电我们']),
+ja:mk2(['ホーム','メニュー','予約','オンライン注文','追加','売り切れ','カート','合計','ログイン','お電話']),
+ko:mk2(['홈','메뉴','예약','온라인 주문','추가','품절','장바구니','합계','로그인','전화하기']),
+id:mk2(['Beranda','Menu','Pesan tempat','Pesan online','Tambah','Habis','Keranjang Anda','Total','Masuk','Hubungi kami']),
+mr:mk2(['मुख्यपृष्ठ','मेनू','बुकिंग','ऑनलाइन ऑर्डर करा','जोडा','संपले','तुमची कार्ट','एकूण','लॉग इन','कॉल करा']),
+gu:mk2(['હોમ','મેનુ','બુકિંગ','ઓનલાઇન ઓર્ડર કરો','ઉમેરો','સમાપ્ત','તમારી કાર્ટ','કુલ','લોગ ઇન','કૉલ કરો'])});
+const cache={};
+async function autoTr(){
+ if(lang==='en'||L[lang])return;
+ if(!('Translator' in self)){if(!autoTr.w){autoTr.w=1;toast('Auto-translate needs a recent desktop Chrome. Showing English.')}return}
+ let tt;try{const av=await Translator.availability({sourceLanguage:'en',targetLanguage:lang});if(av==='unavailable'){toast('Your browser cannot translate to this language yet.');return}tt=await Translator.create({sourceLanguage:'en',targetLanguage:lang)}catch(e){toast('Translation could not start.');return}
+ const my=lang,w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),list=[];let n;
+ while(n=w.nextNode()){const p=n.parentElement;if(!p||/SCRIPT|STYLE|OPTION|TEXTAREA/.test(p.tagName)||p.closest('#lg'))continue;const s=n.nodeValue.trim();if(s.length<2||!/[A-Za-z]{2}/.test(s)||(n._o!==undefined&&n._l===lang))continue;list.push([n,s])}
+ for(const [x,s] of list){if(lang!==my)return;try{const k=my+'|'+s;cache[k]=cache[k]||await tt.translate(s);x._o=x.nodeValue;x._l=my;x.nodeValue=x.nodeValue.replace(s,cache[k])}catch(e){}}
+}
+function tr(){const D=L[lang]||{};const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(n._o!==undefined&&n._l!==lang){n.nodeValue=n._o;n._o=undefined}const s=n.nodeValue.trim();if(!s)continue;if(n._o===undefined&&D[s]){n._o=n.nodeValue;n._l=lang;n.nodeValue=n.nodeValue.replace(s,D[s])}}}
+new MutationObserver(()=>{if(lang==='en')return;if(L[lang])tr();else{clearTimeout(window._at);window._at=setTimeout(autoTr,300)}}).observe(document.body,{childList:true,subtree:true});
+$('#lg').onchange=e=>{lang=e.target.value;document.documentElement.lang=lang;document.documentElement.dir=['ar','ur','he','fa'].includes(lang)?'rtl':'ltr';tr();autoTr()};
+const accts={manager:{pin:'1234',role:'manager'},chef:{pin:'5678',role:'chef'}};
+$('#lf').onsubmit=e=>{e.preventDefault();const id=$('#li').value.trim().toLowerCase(),a=accts[id];if(a&&a.pin===$('#lp').value){staff={id,role:a.role};$('#lerr').textContent='';e.target.reset();drawAdmin()}else $('#lerr').textContent='Wrong staff ID or PIN.'};
+$('#lo').onclick=()=>{staff=null;drawAdmin()};
+$('#pd').min=new Date().toISOString().slice(0,10);
+function pest(){const g=+$('#pg').value||0;let x=g*+$('#pk').value;document.querySelectorAll('.px:checked').forEach(c=>x+=+c.value);x=Math.round(x*1.05);$('#pest').textContent='Estimate with 5% GST: '+fmt(x)+'. Advance to confirm: '+fmt(Math.round(x*.25));return x}
+$('#pf').oninput=pest;pest();
+$('#pf').onsubmit=e=>{e.preventDefault();const est=pest(),ref='P'+Math.floor(100+Math.random()*900);parties.push({ref,name:$('#pn').value,ph:$('#pp').value,ev:$('#pe').value,date:$('#pd').value,g:+$('#pg').value,pkg:$('#pk').selectedOptions[0].textContent.split(' · ')[0],est});$('#pres').textContent='Enquiry sent. Reference '+ref+'. We will call you within 2 hours.';e.target.reset();pest()};
+function qrDraw(n){qrN=n;const u=location.href.split('#')[0]+'#table-'+n;try{const c=qrcode(0,'M');c.addData(u);c.make();$('#qrbox').innerHTML=c.createSvgTag({scale:5,margin:1})}catch(e){$('#qrbox').textContent='The QR library did not load.'}$('#qrl').textContent='Table '+n+': '+u;document.querySelectorAll('#qrt button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.q==n))}
+$('#qrt').innerHTML=[1,2,3,4,5,6,7,8].map(n=>`<button aria-pressed="false" data-q="${n}">Table ${n}</button>`).join('');
+$('#qrt').onclick=e=>{const b=e.target.closest('button');if(b)qrDraw(+b.dataset.q)};
+$('#qrtry').onclick=()=>{location.hash='table-'+qrN};
+const te={'బిర్యానీ':'biryani','దోశ':'dosa','కాఫీ':'coffee','చికెన్':'chicken','రొయ్యలు':'prawns'};
+$('#th').onclick=()=>{const r=document.documentElement;r.dataset.theme=getComputedStyle(r).colorScheme==='dark'?'light':'dark'};
+$('#sq').oninput=e=>{q=e.target.value.toLowerCase();drawMenu()};
+$('#sv').onclick=()=>{const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){toast('Voice search needs Chrome');return}const r=new R();r.lang=$('#sl').value;r.onresult=e=>{let x=e.results[0][0].transcript;Object.keys(te).forEach(k=>{if(x.includes(k))x=te[k]});$('#sq').value=x;q=x.toLowerCase();drawMenu();toast('Heard: '+x)};r.onerror=()=>toast('Could not hear. Allow the microphone.');r.start();toast('Listening…')};
+$('#pkb').onclick=()=>{const v=$('#pkd').value,c=$('#pks').value;const l=menu.map((m,i)=>({m,i})).filter(x=>(v==='any'||(v==='veg')===!!x.m.v)&&(c==='any'||x.m.c===c)).slice(0,2);$('#pkr').innerHTML=l.length?l.map(x=>`<div class="row" style="margin:8px 0"><span>${x.m.e} <b>${x.m.n}</b> ${fmt(x.m.p)}</span><button class="go" data-k="${x.i}">Add</button></div>`).join(''):'Nothing matches. Try another choice.'};
+$('#pkr').onclick=e=>{const b=e.target.closest('[data-k]');if(b){cart[b.dataset.k]=(cart[b.dataset.k]||0)+1;drawCart();toast('Added to cart')}};
+$('#fs').onclick=async()=>{const m=$('#fm');try{const s=await navigator.mediaDevices.getUserMedia({video:true}),v=$('#fv');v.srcObject=s;v.style.display='block';m.textContent='Scanning…';setTimeout(()=>{s.getTracks().forEach(t=>t.stop());v.style.display='none';m.innerHTML='Welcome back, Aarav! Your usual is <b>Gongura chicken</b>. <button class="go" id="fa">Add it</button>';$('#fa').onclick=()=>{cart[0]=(cart[0]||0)+1;drawCart();toast('Added to cart')}},2500)}catch(e){m.textContent='Camera blocked. Allow camera access to try this.'}};
+$('#amenu').onclick=e=>{const b=e.target.closest('[data-o]');if(b){menu[b.dataset.o].off=!menu[b.dataset.o].off;drawMenu();drawAdmin()}};
+$('#af').onsubmit=e=>{e.preventDefault();menu.push({n:$('#an').value,p:+$('#ap2').value,c:'Mains',v:1,e:'🍽️'});e.target.reset();drawMenu();drawAdmin();toast('Dish added to the menu')};
+$('#rvf').onsubmit=e=>{e.preventDefault();const p=document.createElement('p');p.className='rev';p.textContent=$('#rvt').value+' – '+$('#rvn').value;$('#newrev').appendChild(p);e.target.reset();toast('Thanks for your review')};
+$('#nlf').onsubmit=e=>{e.preventDefault();e.target.reset();toast('Subscribed. Offers will reach your inbox')};
+drawMenu();drawCart();route();
+</script>
+</body>
+</html> 
